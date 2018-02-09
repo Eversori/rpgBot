@@ -1,7 +1,10 @@
 package rpgBot.rpgBot;
 
 
+import java.util.Iterator;
 import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.core.entities.TextChannel;
 
 
 public class MemberTest
@@ -31,6 +34,43 @@ public class MemberTest
 		}
 
 		return hasLead;
+	}
+
+	public static boolean memberHasCharacter(Member m, TextChannel txt)
+	{
+		boolean hasChara = false;
+		for (Iterator<RPGCharacter> iChar = ListCollector.characterList.iterator(); iChar.hasNext();)
+		{
+			RPGCharacter chara = iChar.next();
+			if (chara.getCreator() == m && chara.getGroup().getTxtchannel() == txt)
+			{
+				hasChara = true;
+				break;
+			}
+		}
+
+		return hasChara;
+	}
+
+	public static boolean isThisHome(Member m, TextChannel c)
+	{
+		boolean isHome = false;
+
+		for (Iterator<Role> iRM = m.getRoles().iterator(); iRM.hasNext();)
+		{
+			Role r = iRM.next();
+			if (r.getName().contains(c.getName()))
+			{
+				isHome = true;
+				break;
+			}
+			else
+			{
+				isHome = false;
+			}
+		}
+
+		return isHome;
 	}
 
 }

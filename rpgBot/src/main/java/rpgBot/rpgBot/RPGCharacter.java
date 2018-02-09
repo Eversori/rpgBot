@@ -1,7 +1,7 @@
 package rpgBot.rpgBot;
 
 
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.Member;
 
 
 public class RPGCharacter
@@ -10,7 +10,7 @@ public class RPGCharacter
 
 	private String name;
 
-	private User creator;
+	private Member creator;
 
 	private RPGgroup group;
 
@@ -58,12 +58,12 @@ public class RPGCharacter
 		this.id = id;
 	}
 
-	public User getCreator()
+	public Member getCreator()
 	{
 		return creator;
 	}
 
-	public void setCreator(User creator)
+	public void setCreator(Member creator)
 	{
 		this.creator = creator;
 	}
