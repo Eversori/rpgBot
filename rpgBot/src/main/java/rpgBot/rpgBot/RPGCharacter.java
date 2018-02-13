@@ -21,13 +21,6 @@ public class RPGCharacter
 	private String job;
 
 
-	public static int[] randomStats()
-	{
-		int[] stat = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
-		return stat;
-	}
-
 	public int[] getStats()
 	{
 		return stats;

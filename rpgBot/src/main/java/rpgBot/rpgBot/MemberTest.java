@@ -56,10 +56,10 @@ public class MemberTest
 	{
 		boolean isHome = false;
 
-		for (Iterator<Role> iRM = m.getRoles().iterator(); iRM.hasNext();)
+		for (Iterator<Role> iRM = m.getRoles().iterator(); iRM.hasNext();) // List of Roles which the member has
 		{
 			Role r = iRM.next();
-			if (r.getName().contains(c.getName()))
+			if (r.getName().contains(c.getName())) // Has the Member the Role of the Channel
 			{
 				isHome = true;
 				break;
