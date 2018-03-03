@@ -4,6 +4,7 @@ package commands;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import RPGClasses.RPGgroup;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
@@ -14,7 +15,6 @@ import net.dv8tion.jda.core.requests.restaction.ChannelAction;
 import net.dv8tion.jda.core.requests.restaction.RoleAction;
 import rpgBot.rpgBot.ListCollector;
 import rpgBot.rpgBot.MemberTest;
-import rpgBot.rpgBot.RPGgroup;
 import util.STATIC;
 
 
@@ -131,8 +131,10 @@ public class CmdCreateRPG implements Command
 						addToRPG(e);
 
 						ListCollector.roleMap.put(role.getName(), role);
+
 						createTextChannel(g);
 						createVoiceChannel(g);
+						ListCollector.rpggroupList.put(rpg.getTxtchannel(), rpg);
 						EmbedBuilder out = new EmbedBuilder().setColor(Color.CYAN);
 						e.getTextChannel().sendMessage(out.setDescription("The Roleplay " + rpgName + " was started by "
 								+ e.getMessage().getAuthor().getAsMention()).build()).queue();

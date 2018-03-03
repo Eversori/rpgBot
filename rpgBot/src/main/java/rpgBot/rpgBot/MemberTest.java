@@ -39,15 +39,17 @@ public class MemberTest
 	public static boolean memberHasCharacter(Member m, TextChannel txt)
 	{
 		boolean hasChara = false;
-		for (Iterator<RPGCharacter> iChar = ListCollector.characterList.iterator(); iChar.hasNext();)
-		{
-			RPGCharacter chara = iChar.next();
-			if (chara.getCreator() == m && chara.getGroup().getTxtchannel() == txt)
-			{
-				hasChara = true;
-				break;
-			}
-		}
+		// TODO: Überarbeiten dieser Methode
+		// for (Iterator<RPGCharacter> iChar = ListCollector.characterList.iterator();
+		// iChar.hasNext();)
+		// {
+		// RPGCharacter chara = iChar.next();
+		// if (chara.getCreator() == m && chara.getGroup().getTxtchannel() == txt)
+		// {
+		// hasChara = true;
+		// break;
+		// }
+		// }
 
 		return hasChara;
 	}

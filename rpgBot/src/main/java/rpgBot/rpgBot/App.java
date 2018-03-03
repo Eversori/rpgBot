@@ -5,12 +5,15 @@ import javax.security.auth.login.LoginException;
 import commands.CmdAddGrpMembers;
 import commands.CmdAskForPing;
 import commands.CmdCreateRPG;
+import commands.CmdGruss;
 import commands.CmdRollDiceEight;
 import commands.CmdRollDiceFour;
+import commands.CmdRollDiceHundred;
 import commands.CmdRollDiceSix;
 import commands.CmdRollDiceTen;
 import commands.CmdRollDiceTwelve;
 import commands.CmdRollDiceTwenty;
+import commands.CmdTestConvers;
 import listeners.CommandListener;
 import listeners.ReadyListener;
 import listeners.ReconnectedListener;
@@ -81,11 +84,17 @@ public class App
 
 		CommandHandler.commands.put("w20", new CmdRollDiceTwenty());
 
+		CommandHandler.commands.put("w100", new CmdRollDiceHundred());
+
 		CommandHandler.commands.put("ping", new CmdAskForPing());
 
-		CommandHandler.commands.put("startwith", new CmdAddGrpMembers());
+		CommandHandler.commands.put("with", new CmdAddGrpMembers());
 
 		CommandHandler.commands.put("startrpg", new CmdCreateRPG());
+
+		CommandHandler.commands.put("conv", new CmdTestConvers());
+
+		CommandHandler.commands.put("hey", new CmdGruss());
 	}
 
 	private static void addListeners()

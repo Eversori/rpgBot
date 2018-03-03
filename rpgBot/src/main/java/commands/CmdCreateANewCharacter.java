@@ -1,14 +1,13 @@
 package commands;
 
 
-import java.util.Iterator;
+import RPGClasses.PlayerCharacter;
+import RPGClasses.RPGgroup;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import rpgBot.rpgBot.ListCollector;
 import rpgBot.rpgBot.MemberTest;
-import rpgBot.rpgBot.RPGCharacter;
-import rpgBot.rpgBot.RPGgroup;
 
 
 public class CmdCreateANewCharacter implements Command
@@ -70,12 +69,8 @@ public class CmdCreateANewCharacter implements Command
 
 		if (isPossible)
 		{
-			RPGCharacter c = new RPGCharacter();
-			c.setName(args[0]);
-			c.setCreator(m);
-			c.setGroup(myGroup(txt));
-			c.setJob(args[2]);
-			c.setRace(args[1]);
+			PlayerCharacter c = new PlayerCharacter();
+
 			ListCollector.characterList.add(c);
 		}
 		else
@@ -97,42 +92,13 @@ public class CmdCreateANewCharacter implements Command
 
 	private boolean isCharacterNameTakeable(String name) // is the charactername available
 	{
-		boolean isAvailable = false;
-		for (Iterator<RPGCharacter> iChar = ListCollector.characterList.iterator(); iChar.hasNext();)
-		{
-			RPGCharacter rpgc = iChar.next();
-			if (rpgc.getName().equals(name))
-			{
-				isAvailable = false;
-				break;
-			}
-			else
-			{
-				isAvailable = true;
-			}
-		}
-
-		if (!isAvailable)
-		{
-			System.out.println("Name not avaiabale");
-		}
-		return isAvailable;
+		// TODO: Überarbeiten dieser Methode
+		return true;
 	}
 
 	private RPGgroup myGroup(TextChannel txt)
 	{
-		RPGgroup group = null;
-
-		for (Iterator<RPGgroup> iGrp = ListCollector.rpggroupList.iterator(); iGrp.hasNext();)
-		{
-			group = iGrp.next();
-			if (group.getTxtchannel() == txt)
-			{
-				break;
-			}
-		}
-
-		return group;
+		return ListCollector.rpggroupList.get(txt);
 	}
 
 }

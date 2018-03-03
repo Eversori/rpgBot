@@ -1,4 +1,4 @@
-package rpgBot.rpgBot;
+package RPGClasses;
 
 
 import java.util.ArrayList;
@@ -29,6 +29,13 @@ public class RPGgroup
 
 	private Guild guild;
 
+	private boolean hasConv = false;
+
+
+	public RPGgroup()
+	{
+
+	}
 
 	public RPGgroup(Guild guild)
 	{
@@ -113,6 +120,16 @@ public class RPGgroup
 	public void setId(long id)
 	{
 		this.id = id;
+	}
+
+	public boolean isHasConv()
+	{
+		return hasConv;
+	}
+
+	public void setHasConv(boolean hasConv)
+	{
+		this.hasConv = hasConv;
 	}
 
 }

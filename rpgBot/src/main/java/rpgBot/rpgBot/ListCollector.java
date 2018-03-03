@@ -4,6 +4,8 @@ package rpgBot.rpgBot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import RPGClasses.RPGCharacter;
+import RPGClasses.RPGgroup;
 import net.dv8tion.jda.core.entities.Category;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
@@ -26,7 +28,7 @@ public class ListCollector
 
 	public static ArrayList<RPGCharacter> characterList = new ArrayList<RPGCharacter>();
 
-	public static ArrayList<RPGgroup> rpggroupList = new ArrayList<RPGgroup>();
+	public static HashMap<TextChannel, RPGgroup> rpggroupList = new HashMap<TextChannel, RPGgroup>();
 
 
 	public static void createAMapOfServer(Guild g)
