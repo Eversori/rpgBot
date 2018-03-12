@@ -28,6 +28,7 @@ public class CommandListener extends ListenerAdapter
 						|| channel.getParent().getId().equals(STATIC.TCATID)))
 		{
 			raw = event.getMessage().getContent();
+			System.out.println(event.getMessage());
 			CommandHandler.handleCommand(CommandHandler.parse.parser(raw, event));
 		}
 	}

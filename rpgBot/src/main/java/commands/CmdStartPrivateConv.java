@@ -1,9 +1,6 @@
 package commands;
 
 
-import java.util.function.Consumer;
-import net.dv8tion.jda.core.entities.PrivateChannel;
-import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 
@@ -20,18 +17,7 @@ public class CmdStartPrivateConv implements Command
 	@Override
 	public void action(String[] args, GuildMessageReceivedEvent e)
 	{
-		User u = e.getMessage().getAuthor();
-
-		u.openPrivateChannel().queue(new Consumer<PrivateChannel>()
-		{
-
-			@Override
-			public void accept(PrivateChannel arg0)
-			{
-				arg0.sendMessage("Halölo").queue();
-			}
-
-		});
+		e.getMessage().getAuthor().openPrivateChannel().queue((arg0) -> arg0.sendMessage("Hallo").queue());
 	}
 
 	@Override
