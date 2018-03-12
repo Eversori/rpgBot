@@ -2,10 +2,9 @@ package commands;
 
 
 import RPGClasses.PlayerCharacter;
-import RPGClasses.RPGgroup;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import rpgBot.rpgBot.ListCollector;
 import rpgBot.rpgBot.MemberTest;
 
@@ -13,13 +12,13 @@ import rpgBot.rpgBot.MemberTest;
 public class CmdCreateANewCharacter implements Command
 {
 
-	public boolean called(String[] args, MessageReceivedEvent e)
+	public boolean called(String[] args, GuildMessageReceivedEvent e)
 	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public void action(String[] args, MessageReceivedEvent e)
+	public void action(String[] args, GuildMessageReceivedEvent e)
 	{
 		// Befehl-args: Name, Rasse, Start-Job
 		Member creator = e.getMessage().getMember();
@@ -47,7 +46,7 @@ public class CmdCreateANewCharacter implements Command
 		}
 	}
 
-	public void executed(boolean success, MessageReceivedEvent e)
+	public void executed(boolean success, GuildMessageReceivedEvent e)
 	{
 		// TODO Auto-generated method stub
 
@@ -94,11 +93,6 @@ public class CmdCreateANewCharacter implements Command
 	{
 		// TODO: Überarbeiten dieser Methode
 		return true;
-	}
-
-	private RPGgroup myGroup(TextChannel txt)
-	{
-		return ListCollector.rpggroupList.get(txt);
 	}
 
 }

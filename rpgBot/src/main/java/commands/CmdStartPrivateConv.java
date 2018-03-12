@@ -1,42 +1,47 @@
 package commands;
 
 
-import java.util.Random;
+import java.util.function.Consumer;
+import net.dv8tion.jda.core.entities.PrivateChannel;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import util.STATIC;
 
 
-public class CmdRollDiceSix implements Command
+public class CmdStartPrivateConv implements Command
 {
 
+	@Override
 	public boolean called(String[] args, GuildMessageReceivedEvent e)
 	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	@Override
 	public void action(String[] args, GuildMessageReceivedEvent e)
 	{
-		Random rn = new Random();
-		int x = 0;
-		x = rn.nextInt(6) + 1;
+		User u = e.getMessage().getAuthor();
 
-		String name = e.getMember().getEffectiveName();
+		u.openPrivateChannel().queue(new Consumer<PrivateChannel>()
+		{
 
-		e.getChannel()
-				.sendMessage(STATIC.OUTPUT
-						.setDescription(":game_die: " + name + " rolls a 6 sided dice and gets a " + x).build())
-				.queue();
-		e.getMessage().delete().queue();
+			@Override
+			public void accept(PrivateChannel arg0)
+			{
+				arg0.sendMessage("Halölo").queue();
+			}
 
+		});
 	}
 
+	@Override
 	public void executed(boolean success, GuildMessageReceivedEvent e)
 	{
 		// TODO Auto-generated method stub
 
 	}
 
+	@Override
 	public String help()
 	{
 		// TODO Auto-generated method stub

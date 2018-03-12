@@ -2,20 +2,20 @@ package commands;
 
 
 import java.util.Random;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import util.STATIC;
 
 
 public class CmdRollDiceFour implements Command
 {
 
-	public boolean called(String[] args, MessageReceivedEvent e)
+	public boolean called(String[] args, GuildMessageReceivedEvent e)
 	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public void action(String[] args, MessageReceivedEvent e)
+	public void action(String[] args, GuildMessageReceivedEvent e)
 	{
 		Random rn = new Random();
 
@@ -32,7 +32,7 @@ public class CmdRollDiceFour implements Command
 
 	}
 
-	public void executed(boolean success, MessageReceivedEvent e)
+	public void executed(boolean success, GuildMessageReceivedEvent e)
 	{
 		// TODO Auto-generated method stub
 
@@ -44,7 +44,7 @@ public class CmdRollDiceFour implements Command
 		return null;
 	}
 
-	private void multiRoll(MessageReceivedEvent e, String name, Random rn, String cStr)
+	private void multiRoll(GuildMessageReceivedEvent e, String name, Random rn, String cStr)
 	{
 		int count = 0;
 		int x = 0;
@@ -54,7 +54,7 @@ public class CmdRollDiceFour implements Command
 		}
 		catch (NumberFormatException ex)
 		{
-			e.getTextChannel()
+			e.getChannel()
 					.sendMessage(
 							STATIC.ERRORMSG.setDescription("You can't roll a dice " + cStr + ", idiot! :rage:").build())
 					.queue();
@@ -65,7 +65,7 @@ public class CmdRollDiceFour implements Command
 			x = x + (rn.nextInt(4) + 1);
 		}
 
-		e.getTextChannel()
+		e.getChannel()
 				.sendMessage(STATIC.OUTPUT
 						.setDescription(
 								":game_die: " + name + " rolls a 4 sided dice " + count + " times and gets " + x)
@@ -75,12 +75,12 @@ public class CmdRollDiceFour implements Command
 		e.getMessage().delete().queue();
 	}
 
-	private void singleRoll(MessageReceivedEvent e, String name, Random rn)
+	private void singleRoll(GuildMessageReceivedEvent e, String name, Random rn)
 	{
 		int x = 0;
 		x = rn.nextInt(4) + 1;
 
-		e.getTextChannel()
+		e.getChannel()
 				.sendMessage(STATIC.OUTPUT
 						.setDescription(":game_die: " + name + " rolls a 4 sided dice and gets a " + x).build())
 				.queue();

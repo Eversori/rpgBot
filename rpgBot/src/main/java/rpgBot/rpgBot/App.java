@@ -3,9 +3,7 @@ package rpgBot.rpgBot;
 
 import javax.security.auth.login.LoginException;
 import commands.CmdAddGrpMembers;
-import commands.CmdAskForPing;
 import commands.CmdCreateRPG;
-import commands.CmdGruss;
 import commands.CmdRollDiceEight;
 import commands.CmdRollDiceFour;
 import commands.CmdRollDiceHundred;
@@ -13,7 +11,8 @@ import commands.CmdRollDiceSix;
 import commands.CmdRollDiceTen;
 import commands.CmdRollDiceTwelve;
 import commands.CmdRollDiceTwenty;
-import commands.CmdTestConvers;
+import commands.CmdStartPrivateConv;
+import conversations.TestConvs;
 import listeners.CommandListener;
 import listeners.ReadyListener;
 import listeners.ReconnectedListener;
@@ -43,6 +42,7 @@ public class App
 
 		addListeners();
 		addCommands();
+		addConversations();
 
 		try
 		{
@@ -86,15 +86,16 @@ public class App
 
 		CommandHandler.commands.put("w100", new CmdRollDiceHundred());
 
-		CommandHandler.commands.put("ping", new CmdAskForPing());
-
 		CommandHandler.commands.put("with", new CmdAddGrpMembers());
 
 		CommandHandler.commands.put("startrpg", new CmdCreateRPG());
 
-		CommandHandler.commands.put("conv", new CmdTestConvers());
+		CommandHandler.commands.put("hey", new CmdStartPrivateConv());
+	}
 
-		CommandHandler.commands.put("hey", new CmdGruss());
+	public static void addConversations()
+	{
+		PrivateConversationHandler.convs.put("test", new TestConvs());
 	}
 
 	private static void addListeners()

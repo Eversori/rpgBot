@@ -1,16 +1,16 @@
 package commands;
 
 
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 
 public interface Command
 {
-	boolean called(String args[], MessageReceivedEvent e);
+	boolean called(String args[], GuildMessageReceivedEvent e);
 
-	void action(String args[], MessageReceivedEvent e);
+	void action(String args[], GuildMessageReceivedEvent e);
 
-	void executed(boolean success, MessageReceivedEvent e);
+	void executed(boolean success, GuildMessageReceivedEvent event);
 
 	String help();
 }

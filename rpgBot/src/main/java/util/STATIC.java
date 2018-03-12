@@ -11,6 +11,8 @@ public class STATIC
 
 	public static final String PREFIX = "-";
 
+	public static final String PREFIXCON = "+";
+
 	public static final EmbedBuilder ERRORMSG = new EmbedBuilder().setColor(Color.RED);
 
 	public static final EmbedBuilder OUTPUT = new EmbedBuilder().setColor(Color.GREEN);

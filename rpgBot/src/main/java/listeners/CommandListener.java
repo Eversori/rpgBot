@@ -2,7 +2,7 @@ package listeners;
 
 
 import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import rpgBot.rpgBot.CommandHandler;
 import rpgBot.rpgBot.ListCollector;
@@ -11,7 +11,7 @@ import util.STATIC;
 
 public class CommandListener extends ListenerAdapter
 {
-	public void onMessageReceived(MessageReceivedEvent event)
+	public void onGuildMessageReceived(GuildMessageReceivedEvent event)
 	{
 		String raw = "";
 		TextChannel channel = event.getMessage().getTextChannel();

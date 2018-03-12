@@ -2,20 +2,20 @@ package commands;
 
 
 import java.util.Random;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import util.STATIC;
 
 
 public class CmdRollDiceTwelve implements Command
 {
 
-	public boolean called(String[] args, MessageReceivedEvent e)
+	public boolean called(String[] args, GuildMessageReceivedEvent e)
 	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public void action(String[] args, MessageReceivedEvent e)
+	public void action(String[] args, GuildMessageReceivedEvent e)
 	{
 		Random rn = new Random();
 		int x = 0;
@@ -23,14 +23,14 @@ public class CmdRollDiceTwelve implements Command
 
 		String name = e.getMember().getEffectiveName();
 
-		e.getTextChannel()
+		e.getChannel()
 				.sendMessage(STATIC.OUTPUT
 						.setDescription(":game_die: " + name + " rolls a 12 sided dice and gets a " + x).build())
 				.queue();
 		e.getMessage().delete().queue();
 	}
 
-	public void executed(boolean success, MessageReceivedEvent e)
+	public void executed(boolean success, GuildMessageReceivedEvent e)
 	{
 		System.out.println("Command W12 executed");
 

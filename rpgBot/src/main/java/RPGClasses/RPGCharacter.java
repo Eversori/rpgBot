@@ -1,58 +1,36 @@
 package RPGClasses;
 
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import net.dv8tion.jda.core.entities.Member;
 
 
-public abstract class RPGCharacter
+public abstract class RPGCharacter extends Entity
 {
 	// General Attributes
-	private String CharID; // ID of the Character as Primary-Key in DB
+	private String charID; // ID of the Character as Primary-Key in DB
 
 	private Member creator; // The Discord Member who created this Character
 
 	private Tale ownStory; // The RPG where this Character is registered
 
 	// Character Attributes
-	private String name; // Name of the Character
-
 	private Race ownRace; // Race of the Character
 
 	private Job mainJob; // current Main-Job of the Character
 
 	private int age; // Age of this Character
 
-	private LocalDate birthdate; // Birthdate of the Character
+	private HashMap<String, Stat> stats = null; // Stats of this Character
 
-	private double heigth; // Height of the Character
-
-	private double weight; // Weight of the Character
-
-	private char sex; // Gender of the Character
-
-	private String eyecolor;
-
-	private String hair;
-
-	private String appereance;
-
-	private String nature;
-
-	private String charaHistory;
-
-	private HashMap<String, Integer> stats = null; // Stats of this Character
-
-	private HashMap<String, Bonus> ownBoni = null; // Boni/Mali the
+	private HashMap<String, Stat> ownBoni = null; // Boni/Mali the
 	// Character gets
 
-	private HashMap<Weapon, Integer> mastery = null; // Weaponmastery of the
+	private HashMap<String, Integer> mastery = null; // Weaponmastery of the
 	// Character
 
-	private int stamina;
-
-	private int mana;
+	private ArrayList<Weapon> ownWeapon = null;
 
 	private HashMap<String, Ability> ownSkill = null;
 
@@ -78,16 +56,6 @@ public abstract class RPGCharacter
 		this.creator = creator;
 	}
 
-	public String getName()
-	{
-		return name;
-	}
-
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-
 	public int getAge()
 	{
 		return age;
@@ -98,124 +66,14 @@ public abstract class RPGCharacter
 		this.age = age;
 	}
 
-	public LocalDate getBirthdate()
-	{
-		return birthdate;
-	}
-
-	public void setBirthdate(LocalDate birthdate)
-	{
-		this.birthdate = birthdate;
-	}
-
-	public double getHeigth()
-	{
-		return heigth;
-	}
-
-	public void setHeigth(double heigth)
-	{
-		this.heigth = heigth;
-	}
-
-	public double getWeight()
-	{
-		return weight;
-	}
-
-	public void setWeight(double weight)
-	{
-		this.weight = weight;
-	}
-
-	public char getSex()
-	{
-		return sex;
-	}
-
-	public void setSex(char sex)
-	{
-		this.sex = sex;
-	}
-
-	public String getEyecolor()
-	{
-		return eyecolor;
-	}
-
-	public void setEyecolor(String eyecolor)
-	{
-		this.eyecolor = eyecolor;
-	}
-
-	public String getHair()
-	{
-		return hair;
-	}
-
-	public void setHair(String hair)
-	{
-		this.hair = hair;
-	}
-
-	public String getAppereance()
-	{
-		return appereance;
-	}
-
-	public void setAppereance(String appereance)
-	{
-		this.appereance = appereance;
-	}
-
-	public String getNature()
-	{
-		return nature;
-	}
-
-	public void setNature(String nature)
-	{
-		this.nature = nature;
-	}
-
-	public String getCharaHistory()
-	{
-		return charaHistory;
-	}
-
-	public void setCharaHistory(String charaHistory)
-	{
-		this.charaHistory = charaHistory;
-	}
-
-	public HashMap<String, Integer> getStats()
+	public HashMap<String, Stat> getStats()
 	{
 		return stats;
 	}
 
-	public void setStats(HashMap<String, Integer> stats)
+	public void setStats(HashMap<String, Stat> stats)
 	{
 		this.stats = stats;
-	}
-
-	public int getStamina()
-	{
-		return stamina;
-	}
-
-	public void setStamina(int stamina)
-	{
-		this.stamina = stamina;
-	}
-
-	public int getMana()
-	{
-		return mana;
-	}
-
-	public void setMana(int mana)
-	{
-		this.mana = mana;
 	}
 
 	public boolean isHasLook()
@@ -256,6 +114,86 @@ public abstract class RPGCharacter
 	public void setWeaponPulled(boolean isWeaponPulled)
 	{
 		this.isWeaponPulled = isWeaponPulled;
+	}
+
+	public ArrayList<Weapon> getOwnWeapon()
+	{
+		return ownWeapon;
+	}
+
+	public void setOwnWeapon(ArrayList<Weapon> ownWeapon)
+	{
+		this.ownWeapon = ownWeapon;
+	}
+
+	public HashMap<String, Integer> getMastery()
+	{
+		return mastery;
+	}
+
+	public void setMastery(HashMap<String, Integer> mastery)
+	{
+		this.mastery = mastery;
+	}
+
+	public HashMap<String, Stat> getOwnBoni()
+	{
+		return ownBoni;
+	}
+
+	public void setOwnBoni(HashMap<String, Stat> ownBoni)
+	{
+		this.ownBoni = ownBoni;
+	}
+
+	public HashMap<String, Ability> getOwnSkill()
+	{
+		return ownSkill;
+	}
+
+	public void setOwnSkill(HashMap<String, Ability> ownSkill)
+	{
+		this.ownSkill = ownSkill;
+	}
+
+	public String getCharID()
+	{
+		return charID;
+	}
+
+	public void setCharID(String charID)
+	{
+		this.charID = charID;
+	}
+
+	public Tale getOwnStory()
+	{
+		return ownStory;
+	}
+
+	public void setOwnStory(Tale ownStory)
+	{
+		this.ownStory = ownStory;
+	}
+
+	public Race getOwnRace()
+	{
+		return ownRace;
+	}
+
+	public void setOwnRace(Race ownRace)
+	{
+		this.ownRace = ownRace;
+	}
+
+	public Job getMainJob()
+	{
+		return mainJob;
+	}
+
+	public void setMainJob(Job mainJob)
+	{
+		this.mainJob = mainJob;
 	}
 
 }

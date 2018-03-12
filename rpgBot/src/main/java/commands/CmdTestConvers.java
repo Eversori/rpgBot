@@ -2,7 +2,6 @@ package commands;
 
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import rpgBot.rpgBot.ListCollector;
 
 
 public class CmdTestConvers implements Command
@@ -16,7 +15,6 @@ public class CmdTestConvers implements Command
 
 	public void action(String[] args, MessageReceivedEvent e)
 	{
-		ListCollector.rpggroupList.get(e.getMessage().getTextChannel()).setHasConv(true);
 		util.ForConversation.partner.put(e.getMessage().getTextChannel(), e.getMessage().getAuthor());
 	}
 
