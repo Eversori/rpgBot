@@ -13,10 +13,10 @@ public class PrivateConversationListener extends ListenerAdapter
 	{
 		String raw = "";
 
-		if (e.getMessage().getContent().startsWith(STATIC.PREFIXCON)
+		if (e.getMessage().getContentDisplay().startsWith(STATIC.PREFIXCON)
 				&& e.getMessage().getAuthor().getId() != e.getJDA().getSelfUser().getId())
 		{
-			raw = e.getMessage().getContent();
+			raw = e.getMessage().getContentDisplay();
 			System.out.println(e.getMessage());
 			PrivateConversationHandler.handlePrivateConversation(PrivateConversationHandler.parser.parser(raw, e));
 		}
