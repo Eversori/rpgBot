@@ -21,13 +21,13 @@ public class CommandListener extends ListenerAdapter
 		// the sender does not have the role guest
 		// the message was send in Botting/ rpgBot_Listens_here/Cat for rpg Textchannel
 
-		if (event.getMessage().getContent().startsWith(STATIC.PREFIX)
+		if (event.getMessage().getContentDisplay().startsWith(STATIC.PREFIX)
 				&& event.getMessage().getAuthor().getId() != event.getJDA().getSelfUser().getId()
 				&& !event.getMessage().getMember().getRoles().contains(ListCollector.roleMap.get("~Guest"))
 				&& (channel.getId().equals(STATIC.BOTCHANNELID) || channel.getId().equals(STATIC.GENBOTID)
 						|| channel.getParent().getId().equals(STATIC.TCATID)))
 		{
-			raw = event.getMessage().getContent();
+			raw = event.getMessage().getContentDisplay();
 			System.out.println(event.getMessage());
 			CommandHandler.handleCommand(CommandHandler.parse.parser(raw, event));
 		}

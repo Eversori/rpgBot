@@ -63,11 +63,11 @@ public class App
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		catch (RateLimitedException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		catch (RateLimitedException e)
+//		{
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	public static void addCommands()
