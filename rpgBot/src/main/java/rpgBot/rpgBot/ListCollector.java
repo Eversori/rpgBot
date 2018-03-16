@@ -4,14 +4,14 @@ package rpgBot.rpgBot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import RPGClasses.RPGCharacter;
-import RPGClasses.Tale;
 import net.dv8tion.jda.core.entities.Category;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.VoiceChannel;
+import rpgClasses.RPGCharacter;
+import rpgClasses.Tale;
 
 
 public class ListCollector

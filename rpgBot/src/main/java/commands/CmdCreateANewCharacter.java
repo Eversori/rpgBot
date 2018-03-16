@@ -1,12 +1,12 @@
 package commands;
 
 
-import RPGClasses.PlayerCharacter;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import rpgBot.rpgBot.ListCollector;
 import rpgBot.rpgBot.MemberTest;
+import rpgClasses.PlayerCharacter;
 
 
 public class CmdCreateANewCharacter implements Command

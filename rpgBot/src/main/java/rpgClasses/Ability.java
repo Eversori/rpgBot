@@ -1,4 +1,4 @@
-package RPGClasses;
+package rpgClasses;
 
 
 public abstract class Ability

@@ -1,4 +1,4 @@
-package RPGClasses;
+package rpgClasses;
 
 
 import java.util.HashMap;
