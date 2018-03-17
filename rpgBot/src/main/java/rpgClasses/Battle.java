@@ -6,11 +6,15 @@ import java.util.HashMap;
 
 public class Battle
 {
-	private HashMap<String, Entity> participant;
+	/**
+	 * is generated through a tale, when a battle happens
+	 */
+	
+	private HashMap<String, Entity> participant; // Which Monsters and Characters are participating in this battle
 
-	private Tale tale;
+	private Tale tale; // In which tale is this battle happening
 
-	private String[] order;
+	private String[] order; // the order, in which the turns are happening
 
 
 	public Battle(Tale t)

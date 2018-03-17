@@ -7,18 +7,22 @@ import java.util.HashMap;
 
 public class PlayerCharacter extends RPGCharacter
 {
+	/**
+	 * the Players own Characters
+	 */
+	
 	// Character Attributes
 	private Job[] coset; // current coset of the Character
 
-	private int exp;
+	private int exp; // exp the character has earned
 
-	private ArrayList<String> inventory = null;
+	private ArrayList<Item> inventory = null; // the Inventory with Items
 
-	private HashMap<String, Entity> follower = null;
+	private HashMap<String, Entity> follower = null; // All the things, which are passively following this character
 
-	private int reputation;
+	private int reputation; // reputation with the people in a Land/Town/...
 
-	private int spezReputation;
+	private int spezReputation; // reputation with the church/Mafia/pirates/...
 
 
 	// Bot Attributes
@@ -38,12 +42,12 @@ public class PlayerCharacter extends RPGCharacter
 		this.exp = exp;
 	}
 
-	public ArrayList<String> getInventory()
+	public ArrayList<Item> getInventory()
 	{
 		return inventory;
 	}
 
-	private void setInventory(ArrayList<String> inventory)
+	private void setInventory(ArrayList<Item> inventory)
 	{
 		this.inventory = inventory;
 	}
@@ -82,7 +86,7 @@ public class PlayerCharacter extends RPGCharacter
 	protected void initialize()
 	{
 		this.follower = new HashMap<String, Entity>();
-		this.setInventory(new ArrayList<String>());
+		this.setInventory(new ArrayList<Item>());
 		this.setStats(new HashMap<String, Stat>());
 		this.setOwnWeapon(new ArrayList<Weapon>());
 		this.setOwnBoni(new HashMap<String, Stat>());

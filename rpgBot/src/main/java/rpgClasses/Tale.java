@@ -12,8 +12,10 @@ import net.dv8tion.jda.core.entities.VoiceChannel;
 
 public class Tale
 {
-	private String id;
-
+	/**
+	 * rpg which is played
+	 */
+	
 	private String taleName; // Name of the Tale
 
 	private HashMap<String, RPGCharacter> chara = null; // The characters which are used in the Tale
@@ -46,15 +48,6 @@ public class Tale
 		this.player = new ArrayList<>();
 	}
 
-	public String getId()
-	{
-		return id;
-	}
-
-	public void setId(String id)
-	{
-		this.id = id;
-	}
 
 	public String getTaleName()
 	{

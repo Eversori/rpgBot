@@ -3,22 +3,13 @@ package rpgClasses;
 
 public class Job
 {
-	private String jobId;
-
+	/**
+	 * Characters can learn jobs
+	 */
 	private String	label;
 
-	private String	usableWeapon;
+	private Weapontype	usableWeapon;
 
-
-	public String getJobId()
-	{
-		return jobId;
-	}
-
-	public void setJobId(String jobId)
-	{
-		this.jobId = jobId;
-	}
 
 	public String getLabel()
 	{
@@ -30,12 +21,12 @@ public class Job
 		this.label = label;
 	}
 
-	public String getUsableWeapon()
+	public Weapontype getUsableWeapon()
 	{
 		return usableWeapon;
 	}
 
-	public void setUsableWeapon(String usableWeapon)
+	public void setUsableWeapon(Weapontype usableWeapon)
 	{
 		this.usableWeapon = usableWeapon;
 	}

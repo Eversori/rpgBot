@@ -3,31 +3,32 @@ package rpgClasses;
 
 public class Weapon extends Item implements Equipable<Weapon>
 {
-	public static int LEFT = 1;
-	public static int RIGHT = 2;
-	public static int BOTH = 3;
+	/**
+	 * equipable Weapon for Characters
+	 */
+	public static int LEFT = 1; // is the weapon on the left hand
+	public static int RIGHT = 2; // is the weapon on the right hand
+	public static int BOTH = 3; // is the weapon for both hands
 	
-	private String	weapontype;
+	private Weapontype	type; // Weapontype this weapon has
 
-	private int		damage;
+	private int		damage; // damage of the weapon
 
-	private int		range;
-
-	private int		malus;
+	private int		malus; // malus if the weaponmastery is too high
 	
-	private boolean isEquiped = false;
+	private boolean isEquipped = false; // is the weapon equipped
 	
-	private int side;
+	private int side; // on which hand this weapon is equipped
 
 
-	public String getWeapontype()
+	public Weapontype getType()
 	{
-		return weapontype;
+		return type;
 	}
 
-	public void setWeapontype(String weapontype)
+	public void setType(Weapontype type)
 	{
-		this.weapontype = weapontype;
+		this.type = type;
 	}
 
 	public int getDamage()
@@ -40,16 +41,6 @@ public class Weapon extends Item implements Equipable<Weapon>
 		this.damage = damage;
 	}
 
-	public int getRange()
-	{
-		return range;
-	}
-
-	public void setRange(int range)
-	{
-		this.range = range;
-	}
-
 	public int getMalus()
 	{
 		return malus;
@@ -60,14 +51,14 @@ public class Weapon extends Item implements Equipable<Weapon>
 		this.malus = malus;
 	}
 
-	public boolean isEquiped()
+	public boolean isEquipped()
 	{
-		return isEquiped;
+		return isEquipped;
 	}
 
-	private void setEquiped(boolean isEquiped)
+	private void setEquipped(boolean isEquipped)
 	{
-		this.isEquiped = isEquiped;
+		this.isEquipped = isEquipped;
 	}
 
 	public int getSide()
@@ -78,22 +69,6 @@ public class Weapon extends Item implements Equipable<Weapon>
 	public void setSide(int side)
 	{
 		this.side = side;
-	}
-
-	@Override
-	public boolean equipItem(Weapon t, int part)
-	{
-		t.side = part;
-		t.isEquiped = true;
-		return false;
-	}
-
-	@Override
-	public boolean equipItem(Weapon t)
-	{
-		t.side = BOTH;
-		t.isEquiped = true;
-		return false;
 	}
 
 }

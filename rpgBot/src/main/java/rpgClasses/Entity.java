@@ -3,11 +3,15 @@ package rpgClasses;
 
 public abstract class Entity
 {
-	String		name;
+	/**
+	 * Entity is a generic class for Characters and Monsters
+	 */
+	
+	String		name; // Name of this Entity
 
-	private int	stamina;
+	private int	stamina; // Lifepoints this Entity has
 
-	private int mana;
+	private int mana; // Manapoints of the Entity
 
 
 	public String getName()

@@ -2,16 +2,20 @@ package rpgClasses;
 
 public class Armor extends Item implements Equipable<Armor>
 {
-	public static int HEAD = 1;
-	public static int BODY = 2;
-	public static int LEGS = 3;
-	public static int ARMS = 4;
-	public static int FULLBODY = 5;
+	/**
+	 * Armors the characters can equip
+	 */
 	
-	private int physicalDefense;
-	private int magicalDefense;
-	private int bodypart;
-	private boolean isEquiped = false;
+	public static int HEAD = 1; // if the Armor is for the head
+	public static int BODY = 2;	// -'- for the Body
+	public static int LEGS = 3;	// -'- for lower Body
+	public static int ARMS = 4;	// -'- for Arms and Hands
+	public static int FULLBODY = 5; // -'- for the entire Body
+	
+	private int physicalDefense; // extra physical Defense
+	private int magicalDefense; // extra magical Defense
+	private int bodypart; // where does this Armor has to be equipped
+	private boolean isEquipped = false; //is the Armor equipped
 	
 	
 	
@@ -41,25 +45,11 @@ public class Armor extends Item implements Equipable<Armor>
 	}
 	public boolean isEquiped()
 	{
-		return isEquiped;
+		return isEquipped;
 	}
 	private void setEquiped(boolean isEquiped)
 	{
-		this.isEquiped = isEquiped;
-	}
-	@Override
-	public boolean equipItem(Armor t, int part)
-	{
-		t.bodypart = part;
-		t.isEquiped = true;
-		return false;
-	}
-	@Override
-	public boolean equipItem(Armor t)
-	{
-		t.bodypart = FULLBODY;
-		t.isEquiped = true;
-		return false;
+		this.isEquipped = isEquiped;
 	}
 
 }

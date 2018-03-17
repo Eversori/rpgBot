@@ -2,6 +2,10 @@ package rpgClasses;
 
 public class Item
 {
+	/**
+	 * All the different Items of a rpg are of this class
+	 */
+	
 	private String label; // itemname
 	private int durability; //Durability/Usability of this item
 	public String getLabel()

@@ -7,7 +7,10 @@ import java.util.HashMap;
 
 public class NonPlayerCharacter extends RPGCharacter
 {
-	private String actionstyle;
+	/**
+	 * Nonplayercharacters aka NPCs are of this class
+	 */
+	private String actionstyle; // how does this NPC act
 
 
 	protected void initialize()
