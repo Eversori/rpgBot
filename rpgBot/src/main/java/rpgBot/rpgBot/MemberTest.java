@@ -1,14 +1,16 @@
 package rpgBot.rpgBot;
 
-
 import java.util.Iterator;
+import java.util.function.BiConsumer;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.TextChannel;
-
+import rpgClasses.RPGCharacter;
 
 public class MemberTest
 {
+	protected static boolean hasChara;
+
 	public static boolean isThisALeader(Member m)
 	{
 		boolean hasLead = false;
@@ -16,8 +18,8 @@ public class MemberTest
 		if (ListCollector.memberMap.containsKey(m.getEffectiveName()))
 		{
 			if (m.getRoles().contains(ListCollector.roleMap.get("~Leader"))
-					|| m.getRoles().contains(ListCollector.roleMap.get("~General"))
-					|| m.getRoles().contains(ListCollector.roleMap.get("~Taktitian")))
+			        || m.getRoles().contains(ListCollector.roleMap.get("~General"))
+			        || m.getRoles().contains(ListCollector.roleMap.get("~Taktitian")))
 			{
 				hasLead = true;
 			}
@@ -38,19 +40,23 @@ public class MemberTest
 
 	public static boolean memberHasCharacter(Member m, TextChannel txt)
 	{
-		boolean hasChara = false;
-		// TODO: Überarbeiten dieser Methode
-		// for (Iterator<RPGCharacter> iChar = ListCollector.characterList.iterator();
-		// iChar.hasNext();)
-		// {
-		// RPGCharacter chara = iChar.next();
-		// if (chara.getCreator() == m && chara.getGroup().getTxtchannel() == txt)
-		// {
-		// hasChara = true;
-		// break;
-		// }
-		// }
+		hasChara = false;
+		// Does the member already have a Character in this Channel
 
+		ListCollector.characterList.forEach(new BiConsumer<String, RPGCharacter>()
+		{
+
+			@Override
+			public void accept(String arg0, RPGCharacter arg1)
+			{
+				if (arg1.getCreator() == m && arg1.getOwnStory().getTxtChannel() == txt)
+				{
+					hasChara = true;
+				}
+
+			}
+
+		});
 		return hasChara;
 	}
 
@@ -58,10 +64,17 @@ public class MemberTest
 	{
 		boolean isHome = false;
 
-		for (Iterator<Role> iRM = m.getRoles().iterator(); iRM.hasNext();) // List of Roles which the member has
+		for (Iterator<Role> iRM = m.getRoles().iterator(); iRM.hasNext();) // List
+		                                                                   // of
+		                                                                   // Roles
+		                                                                   // which
+		                                                                   // the
+		                                                                   // member
+		                                                                   // has
 		{
 			Role r = iRM.next();
-			if (r.getName().contains(c.getName())) // Has the Member the Role of the Channel
+			if (r.getName().contains(c.getName())) // Has the Member the Role of
+			                                       // the Channel
 			{
 				isHome = true;
 				break;

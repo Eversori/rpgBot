@@ -15,7 +15,6 @@ public class ReconnectedListener extends ListenerAdapter
 		System.out.println("Bot is Ready");
 		for (Guild g : e.getJDA().getGuilds())
 		{
-			DataConnect.getOut();
 			ListCollector.createAMapOfServer(g);
 			DataConnect.openDB();
 		}

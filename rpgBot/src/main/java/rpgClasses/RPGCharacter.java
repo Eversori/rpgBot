@@ -1,50 +1,70 @@
 package rpgClasses;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import net.dv8tion.jda.core.entities.Member;
-
+import rpgBot.rpgBot.DataConnect;
 
 public abstract class RPGCharacter extends Entity
 {
 	// General Attributes
-	private String charID; // ID of the Character as Primary-Key in DB
+	private String						charID;				// ID of the
+	                                                        // Character as
+	                                                        // Primary-Key in DB
 
-	private Member creator; // The Discord Member who created this Character
+	private Member						creator;			// The Discord
+	                                                        // Member who
+	                                                        // created this
+	                                                        // Character
 
-	private Tale ownStory; // The RPG where this Character is registered
+	private Tale						ownStory;			// The RPG where
+	                                                        // this Character is
+	                                                        // registered
 
 	// Character Attributes
-	private Race ownRace; // Race of the Character
+	private Race						ownRace;			// Race of the
+	                                                        // Character
 
-	private Job mainJob; // current Main-Job of the Character
+	private Job							mainJob;			// current Main-Job
+	                                                        // of the Character
 
-	private int age; // Age of this Character
+	private int							age;				// Age of this
+	                                                        // Character
 
-	private HashMap<String, Stat> stats = null; // Stats of this Character
+	private HashMap<String, Stat>		stats		= null;	// Stats of this
+	                                                        // Character
 
-	private HashMap<String, Stat> ownBoni = null; // Boni/Mali the
+	private HashMap<String, Stat>		ownBoni		= null;	// Boni/Mali the
 	// Character gets
 
-	private HashMap<String, Integer> mastery = null; // Weaponmastery of the
+	private HashMap<String, Integer>	mastery		= null;	// Weaponmastery of
+	                                                        // the
 	// Character
 
-	private ArrayList<Weapon> ownWeapon = null;
+	private ArrayList<Weapon>			ownWeapon	= null;
 
-	private HashMap<String, Ability> ownSkill = null;
+	private HashMap<String, Ability>	ownSkill	= null;
 
 	// Bot Attributes
-	private boolean hasLook;
+	private boolean						hasLook;
 
-	private boolean hasSex;
+	private boolean						hasSex;
 
-	private boolean hasRecord;
+	private boolean						hasRecord;
 
-	private boolean isWeaponPulled;
-
+	private boolean						isWeaponPulled;
 
 	protected abstract void initialize();
+
+	public void calcStats() throws Exception
+	{
+		String query = "";
+		query = "SELECT rs.* FROM rstat rs, race r ";
+		query = query + "WHERE r.raceID = rs.race ";
+		query = query + "AND r.raceName = '" + getOwnRace().getRaceName() + "'";
+
+		Object o = DataConnect.safeData(query);
+	}
 
 	public Member getCreator()
 	{
@@ -71,7 +91,7 @@ public abstract class RPGCharacter extends Entity
 		return stats;
 	}
 
-	public void setStats(HashMap<String, Stat> stats)
+	protected void setStats(HashMap<String, Stat> stats)
 	{
 		this.stats = stats;
 	}
@@ -121,7 +141,7 @@ public abstract class RPGCharacter extends Entity
 		return ownWeapon;
 	}
 
-	public void setOwnWeapon(ArrayList<Weapon> ownWeapon)
+	protected void setOwnWeapon(ArrayList<Weapon> ownWeapon)
 	{
 		this.ownWeapon = ownWeapon;
 	}
@@ -131,7 +151,7 @@ public abstract class RPGCharacter extends Entity
 		return mastery;
 	}
 
-	public void setMastery(HashMap<String, Integer> mastery)
+	protected void setMastery(HashMap<String, Integer> mastery)
 	{
 		this.mastery = mastery;
 	}
@@ -141,7 +161,7 @@ public abstract class RPGCharacter extends Entity
 		return ownBoni;
 	}
 
-	public void setOwnBoni(HashMap<String, Stat> ownBoni)
+	protected void setOwnBoni(HashMap<String, Stat> ownBoni)
 	{
 		this.ownBoni = ownBoni;
 	}
@@ -151,7 +171,7 @@ public abstract class RPGCharacter extends Entity
 		return ownSkill;
 	}
 
-	public void setOwnSkill(HashMap<String, Ability> ownSkill)
+	protected void setOwnSkill(HashMap<String, Ability> ownSkill)
 	{
 		this.ownSkill = ownSkill;
 	}

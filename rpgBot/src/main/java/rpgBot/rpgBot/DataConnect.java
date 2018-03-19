@@ -1,85 +1,60 @@
 package rpgBot.rpgBot;
 
-
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import util.STATIC;
 
 public class DataConnect
 {
-	private static BufferedWriter out = null;
+	protected static Connection connection;
 
-
-	public static BufferedWriter getOut()
-	{
-		if (out == null)
-		{
-			try
-			{
-				out = Files.newBufferedWriter(Paths.get("Output"), StandardOpenOption.DELETE_ON_CLOSE,
-						StandardOpenOption.APPEND, StandardOpenOption.CREATE);
-				// out = Files.newBufferedWriter(Paths.get("Output"), StandardOpenOption.APPEND,
-				// StandardOpenOption.CREATE);
-				System.out.println("Writer open");
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-
-		return out;
-	}
-
-	public static void writeDoc(String s)
+	public static void openDB()
 	{
 		try
 		{
-			out.write(s);
-			out.newLine();
-			out.flush();
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			connection = DriverManager.getConnection("jdbc:mysql://" + STATIC.MYSQLCON);
 		}
-		catch (IOException e)
+		catch (InstantiationException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IllegalAccessException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (ClassNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public static void closeWriter()
+	public static void closeDB()
 	{
-		if (out != null)
+		try
 		{
-			try
-			{
-				out.close();
-				out = null;
-				System.out.println("Writer closed");
-			}
-			catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			connection.close();
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
-	public static void openDB()
+	public static Object safeData(String query) throws Exception
 	{
 
-	}
-
-	public static void safeData()
-	{
-
-	}
-
-	public static void closeDB()
-	{
-
+		return 0;
 	}
 
 }

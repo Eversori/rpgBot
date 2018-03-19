@@ -10,7 +10,6 @@ public class ShutdownListener extends ListenerAdapter
 {
 	public void onShutdown(ShutdownEvent e)
 	{
-		DataConnect.closeWriter();
 		DataConnect.closeDB();
 	}
 }

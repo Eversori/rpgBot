@@ -1,15 +1,15 @@
 package rpgClasses;
 
-
 public class Job
 {
 	/**
 	 * Characters can learn jobs
 	 */
-	private String	label;
+	private String		label;
 
 	private Weapontype	usableWeapon;
 
+	private int			tier;
 
 	public String getLabel()
 	{
@@ -29,5 +29,15 @@ public class Job
 	public void setUsableWeapon(Weapontype usableWeapon)
 	{
 		this.usableWeapon = usableWeapon;
+	}
+
+	public int getTier()
+	{
+		return tier;
+	}
+
+	public void setTier(int tier)
+	{
+		this.tier = tier;
 	}
 }

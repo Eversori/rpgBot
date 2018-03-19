@@ -57,7 +57,7 @@ public class CmdAddGrpMembers implements Command
 			}
 			else
 			{
-				DataConnect.writeDoc("CommandException");
+				System.out.println("CommandExceptio");
 				e.getChannel()
 						.sendMessage(STATIC.ERRORMSG.setDescription(
 								"Hey, can you use the Syntax -startwith [role][name][name],.., please? :smiley:")
