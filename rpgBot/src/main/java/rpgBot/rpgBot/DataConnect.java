@@ -2,7 +2,9 @@ package rpgBot.rpgBot;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import util.STATIC;
 
 public class DataConnect
@@ -51,10 +53,26 @@ public class DataConnect
 		}
 	}
 
-	public static Object safeData(String query) throws Exception
+	public static ResultSet extractData(String query) throws Exception
 	{
+		Statement stm = connection.createStatement();
+		ResultSet rset = stm.executeQuery(query);
 
-		return 0;
+		return rset;
 	}
 
+	public static long safeData(String query) throws Exception
+	{
+		long result = 0;
+		Statement stm = connection.createStatement();
+		stm.executeUpdate(query);
+		ResultSet help = stm.getGeneratedKeys();
+
+		if (help != null)
+		{
+			result = help.getLong(0);
+		}
+
+		return result;
+	}
 }

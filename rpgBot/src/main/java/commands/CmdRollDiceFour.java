@@ -1,13 +1,12 @@
 package commands;
 
-
 import java.util.Random;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import util.STATIC;
-
+import rpgBot.rpgBot.WriteInChat;
 
 public class CmdRollDiceFour implements Command
 {
+	private WriteInChat writer = null;
 
 	public boolean called(String[] args, GuildMessageReceivedEvent e)
 	{
@@ -17,6 +16,7 @@ public class CmdRollDiceFour implements Command
 
 	public void action(String[] args, GuildMessageReceivedEvent e)
 	{
+		writer = new WriteInChat(e);
 		Random rn = new Random();
 
 		String name = e.getMember().getEffectiveName();
@@ -54,10 +54,7 @@ public class CmdRollDiceFour implements Command
 		}
 		catch (NumberFormatException ex)
 		{
-			e.getChannel()
-					.sendMessage(
-							STATIC.ERRORMSG.setDescription("You can't roll a dice " + cStr + ", idiot! :rage:").build())
-					.queue();
+			writer.writeError("This is not a number");
 		}
 
 		for (int i = 0; i <= count; i++)
@@ -65,13 +62,7 @@ public class CmdRollDiceFour implements Command
 			x = x + (rn.nextInt(4) + 1);
 		}
 
-		e.getChannel()
-				.sendMessage(STATIC.OUTPUT
-						.setDescription(
-								":game_die: " + name + " rolls a 4 sided dice " + count + " times and gets " + x)
-						.build())
-				.queue();
-
+		writer.writeInfo(":game_die: " + name + " rolls a 4 sided dice " + count + " times and gets " + x);
 		e.getMessage().delete().queue();
 	}
 
@@ -80,11 +71,7 @@ public class CmdRollDiceFour implements Command
 		int x = 0;
 		x = rn.nextInt(4) + 1;
 
-		e.getChannel()
-				.sendMessage(STATIC.OUTPUT
-						.setDescription(":game_die: " + name + " rolls a 4 sided dice and gets a " + x).build())
-				.queue();
-
+		writer.writeInfo(":game_die: " + name + " rolls a 4 sided dice and gets a " + x);
 		e.getMessage().delete().queue();
 	}
 

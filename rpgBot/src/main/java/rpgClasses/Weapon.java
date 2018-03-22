@@ -1,25 +1,32 @@
 package rpgClasses;
 
-
 public class Weapon extends Item implements Equipable<Weapon>
 {
 	/**
 	 * equipable Weapon for Characters
 	 */
-	public static int LEFT = 1; // is the weapon on the left hand
-	public static int RIGHT = 2; // is the weapon on the right hand
-	public static int BOTH = 3; // is the weapon for both hands
-	
-	private Weapontype	type; // Weapontype this weapon has
 
-	private int		damage; // damage of the weapon
+	public static int	SHORT		= 1;		// is this a very short ranged
+	                                            // weapon
+	public static int	MELEE		= 2;		// is this a melee weapon
+	public static int	RANGEDMELEE	= 3;		// is this a long melee weapon
+	public static int	MIDRANGED	= 4;		// is this a mid ranged weapon
+	public static int	RANGED		= 5;		// is this a ranged weapon
+	public static int	HIGHRANGED	= 6;		// is this a highly ranged
+	                                            // weapon
 
-	private int		malus; // malus if the weaponmastery is too high
-	
-	private boolean isEquipped = false; // is the weapon equipped
-	
-	private int side; // on which hand this weapon is equipped
+	private Weapontype	type;					// Weapontype this weapon has
 
+	private int			damage;					// damage of the weapon
+
+	private int			malus;					// malus if the weaponmastery is
+	                                            // too high
+
+	private boolean		isEquipped	= false;	// is the weapon equipped
+
+	private int			side;					// on which hand this weapon is
+	                                            // equipped
+	private int			range;					// attackrange with this weapon
 
 	public Weapontype getType()
 	{
@@ -69,6 +76,16 @@ public class Weapon extends Item implements Equipable<Weapon>
 	public void setSide(int side)
 	{
 		this.side = side;
+	}
+
+	public int getRange()
+	{
+		return range;
+	}
+
+	public void setRange(int range)
+	{
+		this.range = range;
 	}
 
 }

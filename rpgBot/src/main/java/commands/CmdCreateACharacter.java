@@ -87,15 +87,19 @@ public class CmdCreateACharacter implements Command
 		{
 			if (race.getMaxAge() >= age || race.getMinAge() <= age)
 			{
-				pchara = new PlayerCharacter();
-				pchara.setCreator(e.getMessage().getMember());
-				pchara.setName(args[0]);
-				pchara.setMainJob(job);
-				pchara.setOwnRace(race);
-				pchara.setAge(age);
 				try
 				{
+					pchara = new PlayerCharacter();
+					pchara.setCreator(e.getMessage().getMember());
+					pchara.setName(args[0]);
+					pchara.setMainJob(job);
+					pchara.setOwnRace(race);
+					pchara.setAge(age);
 					pchara.calcStats();
+					pchara.addAbilities();
+					pchara.createStartInventory();
+					ListCollector.characterList.put(pchara.getName(), pchara);
+					pchara.safeCharacter();
 				}
 				catch (Exception e1)
 				{
