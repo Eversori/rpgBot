@@ -1,13 +1,12 @@
 package commands;
 
-
 import java.util.Random;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import util.STATIC;
-
+import rpgBot.rpgBot.WriteInChat;
 
 public class CmdRollDiceHundred implements Command
 {
+	private WriteInChat writer = null;
 
 	public boolean called(String[] args, GuildMessageReceivedEvent e)
 	{
@@ -18,6 +17,7 @@ public class CmdRollDiceHundred implements Command
 	public void action(String[] args, GuildMessageReceivedEvent e)
 	{
 		Random rn = new Random();
+		writer = new WriteInChat(e);
 
 		String name = e.getMember().getEffectiveName();
 
@@ -42,10 +42,7 @@ public class CmdRollDiceHundred implements Command
 		int x = 0;
 		x = rn.nextInt(100) + 1;
 
-		e.getChannel()
-				.sendMessage(STATIC.OUTPUT
-						.setDescription(":game_die: " + name + " rolls a 100 sided dice and gets a " + x).build())
-				.queue();
+		writer.writeInfo(":game_die: " + name + " rolls a 100 sided dice and gets a " + x);
 
 		e.getMessage().delete().queue();
 

@@ -1,10 +1,8 @@
 package commands;
 
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Role;
@@ -14,28 +12,27 @@ import net.dv8tion.jda.core.requests.restaction.ChannelAction;
 import net.dv8tion.jda.core.requests.restaction.RoleAction;
 import rpgBot.rpgBot.ListCollector;
 import rpgBot.rpgBot.MemberTest;
+import rpgBot.rpgBot.WriteInChat;
 import util.STATIC;
-
-
-//TODO Ausgaben im Discord fertigen
 
 public class CmdCreateRPG implements Command
 {
 
-	private String rpgName;
+	private String				rpgName;
 
-	private GuildController gc;
+	private GuildController		gc;
 
-	private Role role;
+	private Role				role;
 
-	private List<Permission> allowVC = new ArrayList<Permission>();
+	private List<Permission>	allowVC	= new ArrayList<Permission>();
 
-	private List<Permission> denyVC = new ArrayList<Permission>();
+	private List<Permission>	denyVC	= new ArrayList<Permission>();
 
-	private List<Permission> allowTC = new ArrayList<Permission>();
+	private List<Permission>	allowTC	= new ArrayList<Permission>();
 
-	private List<Permission> denyTC = new ArrayList<Permission>();
+	private List<Permission>	denyTC	= new ArrayList<Permission>();
 
+	private WriteInChat			writer	= null;
 
 	public boolean called(String[] args, GuildMessageReceivedEvent e)
 	{
@@ -45,37 +42,34 @@ public class CmdCreateRPG implements Command
 
 	public void action(String[] args, GuildMessageReceivedEvent e)
 	{
+		writer = new WriteInChat(e);
 		if (MemberTest.isThisALeader(e.getMessage().getMember()))
 		{
 			Guild guild = e.getGuild();
 			gc = guild.getController();
 			initialize();
+
 			if (args.length == 1)
 			{
 				rpgName = args[0];
 				createRPG(guild, e);
 			}
-			else if (args.length == 0)
-			{
-				System.out.println("Wrong format");
-				e.getChannel()
-						.sendMessage(STATIC.ERRORMSG
-								.setDescription("A roleplay without a name? That's boring! :confused:").build())
-						.queue();
-			}
 			else
-			{
-				System.out.println("Wrong format");
-				e.getChannel().sendMessage(STATIC.ERRORMSG
-						.setDescription("Hey, hey! Slow down! The name of the RPG is enough! :unamused:").build())
-						.queue();
-			}
+				if (args.length == 0)
+				{
+					System.out.println("Wrong format");
+					writer.writeError("A roleplay without a name? That's boring! :confused:");
+				}
+				else
+				{
+					System.out.println("Wrong format");
+					writer.writeError("Hey, hey! Slow down! The name of the RPG is enough! :unamused:");
+				}
 		}
 		else
 		{
-			e.getChannel().sendMessage(STATIC.ERRORMSG
-					.setDescription("Stop! You don't have the permissons to do this, I'm sorry :sweat:").build())
-					.queue();
+			System.out.println("Permission denied");
+			writer.writeError("Stop! You don't have the permissons to do this, I'm sorry :sweat:");
 		}
 	}
 
@@ -123,27 +117,21 @@ public class CmdCreateRPG implements Command
 					{
 						role = g.getRoleById(id);
 						System.out.println("Role:" + role.getName());
-
-						addToRPG(e);
-
 						ListCollector.roleMap.put(role.getName(), role);
 
 						createTextChannel(g);
 						createVoiceChannel(g);
-						EmbedBuilder out = new EmbedBuilder().setColor(Color.CYAN);
-						e.getChannel().sendMessage(out.setDescription("The Roleplay " + rpgName + " was started by "
-								+ e.getMessage().getAuthor().getAsMention()).build()).queue();
+						addToRPG(e);
+
+						writer.writeSuccess("The Roleplay " + rpgName + " was started by "
+						        + e.getMessage().getAuthor().getAsMention());
 
 					}
 					else
 					{
 						System.out.println("RoleId is empty");
-						e.getChannel()
-								.sendMessage(STATIC.ERRORMSG
-										.setDescription("Sorry, something didn't work please wait, I'm pinging "
-												+ g.getOwner().getAsMention() + " :rage:")
-										.build())
-								.queue();
+						writer.writeError("Sorry, something didn't work please wait, I'm pinging "
+						        + g.getOwner().getAsMention() + " :rage:");
 					}
 
 				}
@@ -155,26 +143,22 @@ public class CmdCreateRPG implements Command
 			else
 			{
 				System.out.println("Name is to short");
-				e.getChannel()
-						.sendMessage(STATIC.ERRORMSG
-								.setDescription(
-										"Hey, isn't this name a bit short? :thinking: You should add some characters")
-								.build())
-						.queue();
+				writer.writeError("Hey, isn't this name a bit short? :thinking: You should add some characters");
 			}
 		}
 		else
 		{
 			System.out.println("Role already is exsisting");
-			e.getChannel()
-					.sendMessage(STATIC.ERRORMSG.setDescription("This RPG is already existing :frowning:").build())
-					.queue();
+			writer.writeError("This RPG is already existing :frowning:");
 		}
 	}
 
 	private void addToRPG(GuildMessageReceivedEvent e)
 	{
-
+		/**
+		 * TODO: Add this role and channels to the tale TODO: Safe the new Tale
+		 * in DB
+		 */
 	}
 
 	private String createRPGRole() throws Exception

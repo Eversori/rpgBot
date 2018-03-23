@@ -4,7 +4,7 @@ import java.util.Random;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import rpgBot.rpgBot.WriteInChat;
 
-public class CmdRollDiceFour implements Command
+public class CmdRollDiceFour implements Command, Diced
 {
 	private WriteInChat writer = null;
 
@@ -44,7 +44,7 @@ public class CmdRollDiceFour implements Command
 		return null;
 	}
 
-	private void multiRoll(GuildMessageReceivedEvent e, String name, Random rn, String cStr)
+	public void multiRoll(GuildMessageReceivedEvent e, String name, Random rn, String cStr)
 	{
 		int count = 0;
 		int x = 0;
@@ -66,7 +66,7 @@ public class CmdRollDiceFour implements Command
 		e.getMessage().delete().queue();
 	}
 
-	private void singleRoll(GuildMessageReceivedEvent e, String name, Random rn)
+	public void singleRoll(GuildMessageReceivedEvent e, String name, Random rn)
 	{
 		int x = 0;
 		x = rn.nextInt(4) + 1;

@@ -1,23 +1,20 @@
 package commands;
 
-
 import java.awt.Color;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.managers.GuildController;
-import rpgBot.rpgBot.DataConnect;
 import rpgBot.rpgBot.ListCollector;
 import rpgBot.rpgBot.MemberTest;
-import util.STATIC;
-
+import rpgBot.rpgBot.WriteInChat;
 
 public class CmdAddGrpMembers implements Command
 {
 
-	EmbedBuilder send = new EmbedBuilder().setColor(Color.ORANGE);
-
+	private EmbedBuilder	send	= new EmbedBuilder().setColor(Color.ORANGE);
+	private WriteInChat		writer	= null;
 
 	public boolean called(String[] args, GuildMessageReceivedEvent e)
 	{
@@ -27,6 +24,7 @@ public class CmdAddGrpMembers implements Command
 
 	public void action(String[] args, GuildMessageReceivedEvent e)
 	{
+		writer = new WriteInChat(e);
 		if (MemberTest.isThisALeader(e.getMessage().getMember()))
 		{
 			if (args.length >= 2)
@@ -57,19 +55,13 @@ public class CmdAddGrpMembers implements Command
 			}
 			else
 			{
-				System.out.println("CommandExceptio");
-				e.getChannel()
-						.sendMessage(STATIC.ERRORMSG.setDescription(
-								"Hey, can you use the Syntax -startwith [role][name][name],.., please? :smiley:")
-								.build())
-						.queue();
+				System.out.println("CommandException");
+				writer.writeError("Hey, can you use the Syntax -startwith [role][name][name],.., please? :smiley:");
 			}
 		}
 		else
 		{
-			e.getChannel().sendMessage(STATIC.ERRORMSG
-					.setDescription("Stop! You don't have the permissons to do this, I'm sorry :sweat:").build())
-					.queue();
+			writer.writeError("Stop! You don't have the permissons to do this, I'm sorry :sweat:");
 		}
 
 	}
@@ -99,41 +91,30 @@ public class CmdAddGrpMembers implements Command
 					{
 						gc.addSingleRoleToMember(m, r).queue();
 						System.out.println(m.getEffectiveName() + " is joining " + r.getName());
-						e.getChannel()
-								.sendMessage(send
-										.setDescription(
-												m.getEffectiveName() + " has now joined " + r.getName() + "! :grin:")
-										.build())
-								.queue();
+
+						writer.writeSuccess(m.getEffectiveName() + " has now joined " + r.getName() + "! :grin:");
 					}
 					catch (Exception e1)
 					{
 						System.out.println(e1.getMessage());
-						e.getChannel()
-								.sendMessage(
-										STATIC.ERRORMSG.setDescription("Give me more rights! :sunglasses:").build())
-								.queue();
+						writer.writeError("Give me more rights! :sunglasses:");
 					}
 				}
 				else
 				{
-					e.getChannel()
-							.sendMessage(STATIC.ERRORMSG
-									.setDescription(m.getEffectiveName() + " already has this role! :weary:").build())
-							.queue();
+					writer.writeError(m.getEffectiveName() + " already has this role! :weary:");
 				}
 			}
 			else
 			{
 				System.out.println("Role not in List");
-				e.getChannel().sendMessage(STATIC.ERRORMSG.setDescription("I´m sorry I cannot find this role").build())
-						.queue();
+				writer.writeError("I´m sorry I cannot find this role");
 			}
 		}
 		else
 		{
 			System.out.println("Member not in Guild");
-			e.getChannel().sendMessage(STATIC.ERRORMSG.setDescription("I can´t find this guy :sweat:").build()).queue();
+			writer.writeError("I can´t find this guy :sweat:");
 		}
 	}
 

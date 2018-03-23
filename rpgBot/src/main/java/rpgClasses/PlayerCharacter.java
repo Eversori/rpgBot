@@ -80,18 +80,19 @@ public class PlayerCharacter extends RPGCharacter
 	{
 		String classid = this.getMainJob().extractID();
 		String raceid = this.getOwnRace().extractID();
+		String storyid = this.getOwnStory().extractID();
 
 		String query = "";
 		query = "INSERT INTO character ";
 		query = query + "(charName, creator, class, race, age, str, vit, int, psy, dex, LP, MP, ";
-		query = query + "TA, AP, playerCharacter) ";
+		query = query + "TA, AP, playerCharacter, story) ";
 		query = query + "(" + this.getName() + "," + this.getCreator().getUser().getId() + ",";
 		query = query + classid + "," + raceid + "," + this.getAge() + ",";
 		query = query + this.getStats().get("str") + "," + this.getStats().get("vit") + ",";
 		query = query + this.getStats().get("int") + "," + this.getStats().get("psy") + ",";
 		query = query + this.getStats().get("dex") + "," + this.getStats().get("LP") + ",";
 		query = query + this.getStats().get("MP") + "," + this.getStats().get("TA") + ",";
-		query = query + this.getStats().get("AP") + ", true)";
+		query = query + this.getStats().get("AP") + ", true, " + storyid + ")";
 
 		long result = DataConnect.safeData(query);
 		this.setCharID(String.valueOf(result));
