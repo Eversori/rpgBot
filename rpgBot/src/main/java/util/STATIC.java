@@ -2,13 +2,13 @@ package util;
 
 public class STATIC
 {
-	public static final String	VERSION			= "0.0.4a";
+	public static final String	VERSION			= "0.0.5a";
 
 	public static final String	MYSQLCON		= "";
 
 	public static final String	PREFIX			= "-";
 
-	public static final String	PREFIXCON		= "+";
+	public static final String	PREFIXCON		= "<";
 
 	public static final String	VCATID			= "386850368270761984";
 

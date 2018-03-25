@@ -54,7 +54,9 @@ public class PlayerCharacter extends RPGCharacter
 		ArrayList<Item> items = new ArrayList<>();
 		String query = "SELECT i.label, i.durability FROM weapon i, class c ";
 		query = query + "WHERE ";
-
+		/**
+		 * TODO: finish sql
+		 */
 		return items;
 	}
 
@@ -63,7 +65,9 @@ public class PlayerCharacter extends RPGCharacter
 		ArrayList<Weapon> weapons = new ArrayList<>();
 		String query = "SELECT i.label, i.durability FROM item i, class c ";
 		query = query + "WHERE ";
-
+		/**
+		 * TODO: finish sql
+		 */
 		return weapons;
 	}
 
@@ -72,7 +76,9 @@ public class PlayerCharacter extends RPGCharacter
 		ArrayList<Armor> cloths = new ArrayList<>();
 		String query = "SELECT i.label, i.durability FROM armor i, class c ";
 		query = query + "WHERE ";
-
+		/**
+		 * TODO: finish sql
+		 */
 		return cloths;
 	}
 

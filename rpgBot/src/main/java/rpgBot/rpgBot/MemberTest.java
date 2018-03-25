@@ -53,6 +53,10 @@ public class MemberTest
 				{
 					hasChara = true;
 				}
+				else
+				{
+					hasChara = false;
+				}
 
 			}
 

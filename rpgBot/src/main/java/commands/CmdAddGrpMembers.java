@@ -1,7 +1,5 @@
 package commands;
 
-import java.awt.Color;
-import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
@@ -9,12 +7,13 @@ import net.dv8tion.jda.core.managers.GuildController;
 import rpgBot.rpgBot.ListCollector;
 import rpgBot.rpgBot.MemberTest;
 import rpgBot.rpgBot.WriteInChat;
+import rpgClasses.Tale;
 
 public class CmdAddGrpMembers implements Command
 {
+	private WriteInChat	writer	= null;
 
-	private EmbedBuilder	send	= new EmbedBuilder().setColor(Color.ORANGE);
-	private WriteInChat		writer	= null;
+	private Tale		tale	= null;
 
 	public boolean called(String[] args, GuildMessageReceivedEvent e)
 	{
@@ -34,24 +33,50 @@ public class CmdAddGrpMembers implements Command
 				Role role = ListCollector.roleMap.get(name);
 				Member m = null;
 
-				for (int i = 1; i < args.length; i++)
+				if (role != null)
 				{
-					String membername = args[i];
-					System.out.println(membername);
-
-					if (ListCollector.memberMap.containsKey(membername))
+					ListCollector.taleList.forEach((n1, n2) ->
+						{
+							if (n2.getRole().getId().equals(role.getId()))
+							{
+								tale = n2;
+							}
+						});
+					int i = 1;
+					for (; i < args.length; i++)
 					{
-						m = ListCollector.memberMap.get(membername);
+						String membername = args[i];
+						System.out.println(membername);
+
+						if (ListCollector.memberMap.containsKey(membername))
+						{
+							m = ListCollector.memberMap.get(membername);
+						}
+						else
+						{
+							m = null;
+						}
+
+						addRoleToM(m, role, e);
 					}
-					else
+					tale.setOrder(new String[tale.getNumberOfPlayers() - 1]);
+					try
 					{
-						m = null;
+						tale.safeNewParticipants();
 					}
-
-					addRoleToM(m, role, e);
-
+					catch (Exception e1)
+					{
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						System.out.println("DB Exception");
+						writer.writeError("Wait! I'll call " + e.getGuild().getOwner().getAsMention() + ":rage:");
+					}
 				}
-
+				else
+				{
+					System.out.println("Role not in List");
+					writer.writeError("I´m sorry I cannot find this role");
+				}
 			}
 			else
 			{
@@ -82,34 +107,28 @@ public class CmdAddGrpMembers implements Command
 	{
 		if (m != null)
 		{
-			if (r != null)
-			{
-				if (!m.getRoles().contains(r))
-				{
-					GuildController gc = e.getGuild().getController();
-					try
-					{
-						gc.addSingleRoleToMember(m, r).queue();
-						System.out.println(m.getEffectiveName() + " is joining " + r.getName());
 
-						writer.writeSuccess(m.getEffectiveName() + " has now joined " + r.getName() + "! :grin:");
-					}
-					catch (Exception e1)
-					{
-						System.out.println(e1.getMessage());
-						writer.writeError("Give me more rights! :sunglasses:");
-					}
-				}
-				else
+			if (!m.getRoles().contains(r))
+			{
+				GuildController gc = e.getGuild().getController();
+				try
 				{
-					writer.writeError(m.getEffectiveName() + " already has this role! :weary:");
+					gc.addSingleRoleToMember(m, r).queue();
+					System.out.println(m.getEffectiveName() + " is joining " + r.getName());
+
+					writer.writeSuccess(m.getEffectiveName() + " has now joined " + r.getName() + "! :grin:");
+				}
+				catch (Exception e1)
+				{
+					System.out.println(e1.getMessage());
+					writer.writeError("Give me more rights! :sunglasses:");
 				}
 			}
 			else
 			{
-				System.out.println("Role not in List");
-				writer.writeError("I´m sorry I cannot find this role");
+				writer.writeError(m.getEffectiveName() + " already has this role! :weary:");
 			}
+
 		}
 		else
 		{

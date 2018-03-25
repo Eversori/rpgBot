@@ -6,6 +6,8 @@ import java.util.List;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.managers.GuildController;
 import net.dv8tion.jda.core.requests.restaction.ChannelAction;
@@ -13,6 +15,7 @@ import net.dv8tion.jda.core.requests.restaction.RoleAction;
 import rpgBot.rpgBot.ListCollector;
 import rpgBot.rpgBot.MemberTest;
 import rpgBot.rpgBot.WriteInChat;
+import rpgClasses.Tale;
 import util.STATIC;
 
 public class CmdCreateRPG implements Command
@@ -113,18 +116,29 @@ public class CmdCreateRPG implements Command
 				try
 				{
 					String id = createRPGRole();
-					if (id != "")
+					if (!id.equals(""))
 					{
 						role = g.getRoleById(id);
 						System.out.println("Role:" + role.getName());
 						ListCollector.roleMap.put(role.getName(), role);
 
-						createTextChannel(g);
-						createVoiceChannel(g);
-						addToRPG(e);
-
-						writer.writeSuccess("The Roleplay " + rpgName + " was started by "
-						        + e.getMessage().getAuthor().getAsMention());
+						String txtid = createTextChannel(g);
+						String vcid = createVoiceChannel(g);
+						if (!txtid.equals("") && !vcid.equals(""))
+						{
+							TextChannel txt = g.getTextChannelById(txtid);
+							VoiceChannel vc = g.getVoiceChannelById(vcid);
+							e.getMember().getRoles().add(role);
+							addToRPG(e, txt, vc);
+							writer.writeSuccess("The Roleplay " + rpgName + " was started by "
+							        + e.getMessage().getAuthor().getAsMention());
+						}
+						else
+						{
+							System.out.println("TextChannelId or VoiceChannelId are empty");
+							writer.writeError("Sorry, something didn't work please wait, I'm pinging "
+							        + g.getOwner().getAsMention() + " :rage:");
+						}
 
 					}
 					else
@@ -144,6 +158,7 @@ public class CmdCreateRPG implements Command
 			{
 				System.out.println("Name is to short");
 				writer.writeError("Hey, isn't this name a bit short? :thinking: You should add some characters");
+
 			}
 		}
 		else
@@ -153,12 +168,27 @@ public class CmdCreateRPG implements Command
 		}
 	}
 
-	private void addToRPG(GuildMessageReceivedEvent e)
+	private void addToRPG(GuildMessageReceivedEvent e, TextChannel txt, VoiceChannel vc)
 	{
 		/**
-		 * TODO: Add this role and channels to the tale TODO: Safe the new Tale
-		 * in DB
+		 * TODO: Safe the new Tale in DB
 		 */
+		try
+		{
+			Tale tale = new Tale(e.getGuild());
+			tale.setRole(role);
+			tale.setStoryTeller(e.getMember());
+			tale.setTaleName(rpgName);
+			tale.setTxtChannel(txt);
+			tale.setVcChannel(vc);
+			ListCollector.taleList.put(txt, tale);
+			tale.safeThisTale();
+		}
+		catch (Exception e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	private String createRPGRole() throws Exception
@@ -186,9 +216,9 @@ public class CmdCreateRPG implements Command
 		return id;
 	}
 
-	private void createTextChannel(Guild g) throws Exception
+	private String createTextChannel(Guild g) throws Exception
 	{
-
+		String id = "";
 		try
 		{
 			ChannelAction act = gc.createTextChannel(rpgName);
@@ -197,21 +227,21 @@ public class CmdCreateRPG implements Command
 
 			act.addPermissionOverride(role, allowTC, denyTC);
 
-			String id = act.complete().getId();
+			id = act.complete().getId();
 
 			System.out.println("TxtChannel created");
-
 		}
 		catch (Exception e)
 		{
 			System.out.println(e.getMessage());
 			System.out.println("An error has occured with creating Channel");
 		}
-
+		return id;
 	}
 
-	private void createVoiceChannel(Guild g)
+	private String createVoiceChannel(Guild g)
 	{
+		String id = "";
 		try
 		{
 			ChannelAction act = gc.createVoiceChannel(rpgName + "VC");
@@ -220,7 +250,7 @@ public class CmdCreateRPG implements Command
 
 			act.addPermissionOverride(role, allowVC, denyVC);
 
-			String id = act.complete().getId();
+			id = act.complete().getId();
 
 			System.out.println("VChannel created");
 
@@ -229,5 +259,6 @@ public class CmdCreateRPG implements Command
 		{
 			System.out.println("An error has occured with creating Channel");
 		}
+		return id;
 	}
 }
